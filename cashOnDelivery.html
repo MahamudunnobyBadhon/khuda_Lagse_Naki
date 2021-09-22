@@ -153,7 +153,7 @@
             const name = document.querySelector('#name').innerText;
             const email = document.querySelector('#email').innerText;
             const mobile = document.querySelector('#mobile').value;
-            const transactionId = "        ";
+            const transactionId = "11111111";
             const address = document.querySelector('#address').value;
             const val = await payment();
             const totalPrice = await paymentPrice();
@@ -182,7 +182,7 @@
 
 
 
-        let response = await fetch('https://calm-garden-13016.herokuapp.com/orders', {
+        let response = await fetch('http://localhost:5000/orders', {
             method: 'POST',
             headers: {'Content-Type':'application/x-www-form-urlencoded'}, // this line is important, if this content-type is not set it wont work
             body: queryString,
