@@ -122,7 +122,10 @@
                   </div>
                 </div>
               </div>
+              
+              
         </div>
+        
     </div>
 
 
@@ -245,7 +248,12 @@
     addToCart2();
 
     document.getElementById('check-out').addEventListener('click', function(){
-      window.location.href = "payment.html";
+      if(document.cookie != ''){
+        window.location.href = "payment.html";
+      }
+      else{
+        alert('Please Log In');
+      }
     })
     </script>
 

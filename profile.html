@@ -163,11 +163,12 @@
           const parentDiv = document.getElementById('purchase-history');
           for(const detail of res2.details){
             console.log(detail);
+            const date = new Date(detail.createdAt);
             const tr = document.createElement('tr');
             tr.innerHTML = `
             <tr>
               <td>${detail._id}</td>
-              <td>${detail.createdAt}</td>
+              <td>${date}</td>
               <td> Successful </td>
               <td>${detail.details.length}</td>
               <td>${detail.totalPrice}</td>
