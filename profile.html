@@ -170,7 +170,7 @@
           for(const detail of res2.details){
             console.log(detail);
             let date = new Date(detail.createdAt);
-            date = date.toISOString().substring(0, 19);
+            //date = date.toISOString().substring(0, 19);
             const tr = document.createElement('tr');
             tr.innerHTML = `
             <tr>
