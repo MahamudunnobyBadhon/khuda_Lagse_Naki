@@ -79,11 +79,17 @@
               <h4>Email: <span id="email"></span></h4>
               <h4>Mobile No: <span id="mobile-no"></span></h4>
               <h4>Address: <span id="address"></span></h4>
+              <button onclick="logOut()">Log Out</button>
           </div>
 
       </section>
 
       <script>
+
+        const logOut = () =>{
+          document.cookie =  ''+"path=/";
+          window.location.href = "index.html";
+        }
 
         const loadProfileData = async() => {
         let cookies = (document.cookie);
@@ -183,7 +189,7 @@
          document.getElementById('mobile-no').innerHTML = `${res.mobile}`;
          document.getElementById('address').innerHTML = `${res2.details[0].address}`;
         } 
-        
+       
         loadProfileData();
         orderDetails();
       </script>
