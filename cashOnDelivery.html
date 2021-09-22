@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="css/signup.css">
+
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <!-- link font awesome icon -->
+    <script src="https://kit.fontawesome.com/af4e5ff284.js" crossorigin="anonymous"></script>
+
+    <!-- font family -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+
+    <script>
+      $(document).ready(function(){
+        $('#icon').click(function(){
+          $('ul').toggleClass('show');
+        });
+      });
+    </script>
+    
+</head>
+<body>
+
+    <header>
+        <nav>
+          <label class="logo"><i class="fas fa-utensils"></i> Khuda Lagse Naki!</label>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="order2.html">Order</a></li>
+            <li><a href="search.html">Search</a></li>
+            <li><a href="cart.html">Cart</a></li>
+            <li><a href="signup.html"><i class="fas fa-sign-in-alt"></i> Sign Up</a></li>
+            <li><a href="login2.html"><i class="fas fa-user-plus"></i> Log In</a></li>
+            <li><a href="profile.html">Profile</a></li>
+          </ul>
+          <label id="icon">
+            <i class="fas fa-bars"></i>
+          </label>
+        </nav>
+      </header>
+
+    <h2 class="text-center fw-bolder">
+      Payment Method
+    </h2>
+    <div class="text-center">
+        <h3>Want to Bkash Payment?</h3>
+        <button onclick="bkashPayment()"class="btn btn-success">Bkash Payment</button>
+       
+    </div>
+        
+        <div style="margin-left: 530px;"class="col mt-3">
+
+            <form  id="formElem" action="post" >
+
+                <label for="inputEmail4" class="form-label">Name</label>
+                <br>
+                <p id="name" class="error name-error"></p>
+
+                <label for="inputEmail4" class="form-label">Email</label>
+                <br>
+                <p id="email" class="error email-error"></p>
+            
+                <label for="inputEmail4" class="form-label">Mobile No</label>
+                <br>
+                <input type="text" placeholder="enter mobile" id="mobile" size="30" />
+                <p class="error mobile-error"></p>
+            
+                <label for="inputEmail4" class="form-label">Address</label>
+                <br>
+                <input type="text" placeholder="enter address" id="address" size="30" />
+                <p class="error address-error"></p>
+            
+                
+                <input type="submit" value="Submit" id="submit"/>
+            </form>
+
+        </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+
+    <script>
+
+        const bkashPayment = () =>{
+            window.location.href = "payment.html"
+        }
+        let a = [];
+        
+        
+        if(window.localStorage.getItem('array') !== null){
+
+            a = (window.localStorage.getItem('array').split(','));
+            for(let i =0; i< a.length; i++){
+            a[i] = parseInt(a[i]);
+        }
+        }
+
+        const payment = async() =>{
+            let resoponse2 = await fetch("https://calm-garden-13016.herokuapp.com/allfoods");
+
+            let res2 = await resoponse2.json();
+
+            console.log(res2);
+            let food = [];
+            let count = 0;
+
+            for(let i = 0; i<12; i++){
+
+                if(a[i]>0){   
+                food[count] = {
+                    
+                    name : res2[i].name,
+                    qunatity : a[i],
+                    price : res2[i].price*a[i]
+                } 
+                count = count + 1;
+                }
+            } 
+
+            console.log(food);
+             return food;
+        }
+
+        const paymentPrice = async() =>{
+            let resoponse2 = await fetch("https://calm-garden-13016.herokuapp.com/allfoods");
+
+            let res2 = await resoponse2.json();
+            let total = 0;
+
+            for(let i = 0; i<12; i++){
+
+                if(a[i]>0){   
+                total += res2[i].price*a[i];}
+            } 
+
+            console.log(total);
+             return total;
+        }
+
+        formElem.onsubmit = async (e) => {
+         e.preventDefault();
+
+
+            const name = document.querySelector('#name').innerText;
+            const email = document.querySelector('#email').innerText;
+            const mobile = document.querySelector('#mobile').value;
+            const transactionId = "        ";
+            const address = document.querySelector('#address').value;
+            const val = await payment();
+            const totalPrice = await paymentPrice();
+             console.log(val);
+
+
+            const params = {
+            name,
+            email,
+            mobile,
+            transactionId,
+            address,
+            totalPrice
+            }
+
+            for(let i = 0; i<val.length; i++){
+                params['name'+i]= val[i].name;
+                params['quantity'+i] =  val[i].qunatity;
+                params['price'+i] = val[i].price;
+            }
+            console.log(params);
+            var queryString = Object.keys(params).map(key => key + '=' + params[key]).join('&');
+            console.log(params);
+            console.log(queryString);
+
+
+
+        let response = await fetch('https://calm-garden-13016.herokuapp.com/orders', {
+            method: 'POST',
+            headers: {'Content-Type':'application/x-www-form-urlencoded'}, // this line is important, if this content-type is not set it wont work
+            body: queryString,
+
+        });
+
+            let res = await response.json();
+            console.log(res);
+            alert(res.msg);
+        }
+        
+        const loadProducts = async() => {
+        let cookies = (document.cookie);
+        console.log(cookies);
+
+        const params = {
+        token: cookies,
+
+        }
+        console.log(params);
+        var queryString = Object.keys(params).map(key => key + '=' + params[key]).join('&');
+
+
+        let response = await fetch('https://calm-garden-13016.herokuapp.com/user_data', {
+        method: 'POST',
+        headers: {'Content-Type':'application/x-www-form-urlencoded'}, // this line is important, if this content-type is not set it wont work
+        body: queryString,
+        });
+
+        let res = await response.json();
+        console.log(res);
+        let userName = res.token; 
+
+        if (window.performance) {
+        console.info("window.performance work's fine on this browser");
+        }
+        if (performance.navigation.type == 1) {
+            console.info( "This page is reloaded" );
+        } else {
+            console.info( "This page is not reloaded");
+        }
+
+         document.getElementById('name').innerHTML = `<p>${res.username}</p>`;
+         document.getElementById('email').innerHTML = `<p>${res.email}</p>`;
+         document.getElementById('money').innerHTML = `<p>${JSON.parse(window.localStorage.getItem('price'))}</p>`;
+        };
+        loadProducts(); 
+        payment();
+
+      
+    </script>
+</body>
+</html>

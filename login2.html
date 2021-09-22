@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LogIn</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/signup.css">
+
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <!-- link font awesome icon -->
+    <script src="https://kit.fontawesome.com/af4e5ff284.js" crossorigin="anonymous"></script>
+
+    <!-- font family -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+
+    <script>
+      $(document).ready(function(){
+        $('#icon').click(function(){
+          $('ul').toggleClass('show');
+        });
+      });
+    </script>
+    
+</head>
+<body>
+
+  <header>
+    <nav>
+      <label class="logo"><i class="fas fa-utensils"></i> Khuda Lagse Naki!</label>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="order2.html">Order</a></li>
+        <li><a href="search.html">Search</a></li>
+        <li><a href="cart.html">Cart</a></li>
+        <li><a href="signup.html"><i class="fas fa-sign-in-alt"></i> Sign Up</a></li>
+        <li><a href="login2.html"><i class="fas fa-user-plus"></i> Log In</a></li>
+        <li><a href="profile.html">Profile</a></li>
+        
+      </ul>
+      <label id="icon">
+        <i class="fas fa-bars"></i>
+      </label>
+    </nav>
+  </header>
+  <section>
+    <h3 class="text-center" id="login-failed"></h3>
+  </section>
+  <section style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+  <h3 style="color: black;"class="text-center">LogIn Form</h3>
+  <div class="sign-up d-flex justify-content-center w-50 mx-auto">
+    
+    <form style="font-weight: bold;" id="formElem" action="post" >
+        <label for="inputEmail4" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" >
+        <label for="inputPassword4" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password">
+        <br>
+        <input type="submit" value="Submit" />
+    </form>
+  </div>
+  </section>
+
+    <script>
+      formElem.onsubmit = async (e) => {
+         e.preventDefault();
+ 
+
+      const username = document.querySelector('#email').value;
+      const password = document.querySelector('#password').value;
+
+      const params = {
+        username,
+        password
+      }
+      var queryString = Object.keys(params).map(key => key + '=' + params[key]).join('&');
+
+
+    let response = await fetch('https://calm-garden-13016.herokuapp.com/login', {
+        method: 'POST',
+        headers: {'Content-Type':'application/x-www-form-urlencoded'}, // this line is important, if this content-type is not set it wont work
+        body: queryString,
+    });
+
+      let res = await response.json();
+      console.log(res);
+      let userName = res.token; 
+    
+
+     function setCookie(cname,cvalue,exdays){
+          const d = new Date();
+          d.setTime(d.getTime() + (exdays*60*1000));
+          let expires = "expires=" + d.toGMTString();
+          // document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+          document.cookie =  cvalue + ";" + expires + ";path=/";
+        }
+
+
+        function getCookie(cname) {
+        let name = cname + "=";
+        let decodedCookie = decodeURIComponent(document.cookie);
+        let ca = decodedCookie.split(';');
+        for(let i = 0; i < ca.length; i++) {
+          let c = ca[i];
+          while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+          }
+          if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+          }
+        }
+        return "";
+      }
+     
+      function checkCookie(userName) {
+        let userN = getCookie("username");
+        if (userN != "") {
+          alert("Welcome again " + userN);
+        } else {
+          //  user = prompt("Please enter your name:","");
+            if (userName != "" && userName != null) {
+             setCookie("userName", userName, 60);
+          //  }
+        }
+      }
+  }
+
+  checkCookie(userName);
+      
+          if(res.message == "logged in!"){
+            window.location.href = "index.html"
+          }
+          else{
+            document.getElementById('login-failed').innerText = "Authentication Failed.";
+            document.getElementById('login-failed').style.color = "red";
+          }
+    } 
+  </script>
+</body>
+</html>
