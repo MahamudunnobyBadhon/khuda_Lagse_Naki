@@ -44,7 +44,6 @@
         <li><a href="cart.html">Cart</a></li>
         <li><a href="signup.html"><i class="fas fa-sign-in-alt"></i> Sign Up</a></li>
         <li><a href="login2.html"><i class="fas fa-user-plus"></i> Log In</a></li>
-        <li><a href="profile.html">Profile</a></li>
       </ul>
       <label id="icon">
         <i class="fas fa-bars"></i>
@@ -85,6 +84,16 @@
     
     <input type="submit" value="Submit" id="submit"/>
 </form>
+  </section>
+
+  <section >
+    <div style="display: none; font-weight: bold;margin-left: 50px; justify-content: center;" id="otp">
+      <label for="otp">Give your 8digit Otp Here</label>
+      <br>
+      <input id="otp-value" type="text" placeholder="type otp">
+      <p>If wrong email fill the form again</p>
+      <input type="submit" value="submit" id="submitOtp">
+    </div>
   </section>
 
 
@@ -128,8 +137,49 @@ let response = await fetch('https://calm-garden-13016.herokuapp.com/signup', {
           document.getElementById('alert-message').style.color = 'red';
           document.getElementById('alert-message').style.textAlign = 'center';
          }
-         else{
-           window.location.href = "login2.html";
+         else if(res.message === 'User was added successfully!'){
+           console.log('else print');
+
+           window.location.href = "otpcheck.html";
+          
+           let otpValue;
+              document.getElementById('otp').style.display = 'block';
+              
+              const params2 = {
+                    email
+                  }
+                  var queryString = Object.keys(params2).map(key => key + '=' + params2[key]).join('&');
+
+
+
+              let response2 = await fetch('https://calm-garden-13016.herokuapp.com/email_verification', {
+                  method: 'POST',
+                  headers: {'Content-Type':'application/x-www-form-urlencoded'}, // this line is important, if this content-type is not set it wont work
+                  body: queryString,
+
+              });
+
+                  let res2 = await response2.json();
+                  console.log(res2);
+                
+          //         let value = res2.cc;
+                
+          //         value = 35411453;
+                  
+              
+
+          //         document.getElementById('submitOtp').addEventListener('onclick', function(){
+          //           otpValue = document.getElementById('otp-value');
+          //           let otpV = parseInt(otpValue);
+          //           if(otpV = value){
+          //             window.location.href = "login2.html";
+          //           }
+
+          //           else{
+          //             console.log('wrong otp');
+          //           }
+          //         })
+                  
          }
          document.querySelector('#name').value = '';
           
@@ -138,6 +188,8 @@ let response = await fetch('https://calm-garden-13016.herokuapp.com/signup', {
          document.querySelector('#mobile').value = '';
           
          document.querySelector('#password').value = '';
+
+         document.getElementById('otp').style.display = 'block';
           
   }
   const nameError = document.getElementById('name-error').innerText = "Name must contain any other than alphabet";
