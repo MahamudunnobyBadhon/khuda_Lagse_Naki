@@ -83,7 +83,7 @@
         } else {
           alert("put a valid otp or check email");
 
-          let response = await fetch("http://localhost:5000/otp_user");
+          let response = await fetch("https://calm-garden-13016.herokuapp.com/otp_user");
           res = await response.json();
 
           let params = {
@@ -94,7 +94,7 @@
           var queryString = Object.keys(params).map(key => key + '=' + params[key]).join('&');
 
           response = await fetch(
-            "http://localhost:5000/otp_delete",
+            "https://calm-garden-13016.herokuapp.com/otp_delete",
             {
               method: "DELETE",
               headers: { "Content-Type": "application/x-www-form-urlencoded" }, // this line is important, if this content-type is not set it wont work
