@@ -1,81 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
 
     <!-- bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
-    
-    
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+      crossorigin="anonymous"
+    />
+
     <!-- link css -->
-    <link rel="stylesheet" href="css/signup.css">
+    <link rel="stylesheet" href="css/signup.css" />
 
     <!-- jquery -->
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <!-- link font awesome icon -->
-    <script src="https://kit.fontawesome.com/af4e5ff284.js" crossorigin="anonymous"></script>
+    <script
+      src="https://kit.fontawesome.com/af4e5ff284.js"
+      crossorigin="anonymous"
+    ></script>
 
     <!-- font family -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"
+      rel="stylesheet"
+    />
 
     <script>
-      $(document).ready(function(){
-        $('#icon').click(function(){
-          $('ul').toggleClass('show');
+      $(document).ready(function () {
+        $("#icon").click(function () {
+          $("ul").toggleClass("show");
         });
       });
     </script>
-
-</head>
-<body>
-
+  </head>
+  <body>
     <header>
-        <nav>
-          <label class="logo"><i class="fas fa-utensils"></i> Khuda Lagse Naki!</label>
-          <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="order2.html">Order</a></li>
-            <li><a href="search.html">Search</a></li>
-            <li><a href="cart.html">Cart</a></li>
-            <li><a href="signup.html"><i class="fas fa-sign-in-alt"></i> Sign Up</a></li>
-          </ul>
-          <label id="icon">
-            <i class="fas fa-bars"></i>
-          </label>
-        </nav>
-      </header>
-    
-    <form style="margin-left: 30px;"id="otpchecker" action="">
-        <p>Put Your Otp Here</p>
-        <input id="otp"type="number" placeholder="otp">
-        <br>
-        <br>
-        <input id="submit" type="submit">
+      <nav>
+        <label class="logo"
+          ><i class="fas fa-utensils"></i> Khuda Lagse Naki!</label
+        >
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="order2.html">Order</a></li>
+          <li><a href="search.html">Search</a></li>
+          <li><a href="cart.html">Cart</a></li>
+          <li>
+            <a href="signup.html"><i class="fas fa-sign-in-alt"></i> Sign Up</a>
+          </li>
+        </ul>
+        <label id="icon">
+          <i class="fas fa-bars"></i>
+        </label>
+      </nav>
+    </header>
+
+    <form style="margin-left: 30px" id="otpchecker" action="">
+      <p>Put Your Otp Here</p>
+      <input id="otp" type="number" placeholder="otp" />
+      <br />
+      <br />
+      <input id="submit" type="submit" />
     </form>
 
     <script>
-        otpchecker.onsubmit = async (e) => {
-         e.preventDefault();
-            let email = document.getElementById('email');
-            let otp = document.getElementById('otp').value;
-            console.log(otp);
+      otpchecker.onsubmit = async (e) => {
+        e.preventDefault();
+        let email = document.getElementById("email");
+        let otp = document.getElementById("otp").value;
+        console.log(otp);
 
-            if((otp) == 35411453){
-                alert('User was added successfully');
-                window.location.href = "login2.html";
+        if (otp == 35411453) {
+          alert("User was added successfully");
+          window.location.href = "login2.html";
+        } else {
+          alert("put a valid otp or check email");
+
+          let response = await fetch("http://localhost:5000/otp_user");
+          res = await response.json();
+
+          let params = {
+            id: res.user[0]._id,
+          }
+
+          console.log(res.user[0]._id);
+          var queryString = Object.keys(params).map(key => key + '=' + params[key]).join('&');
+
+          response = await fetch(
+            "http://localhost:5000/otp_delete",
+            {
+              method: "DELETE",
+              headers: { "Content-Type": "application/x-www-form-urlencoded" }, // this line is important, if this content-type is not set it wont work
+              body: queryString,
             }
-            else{
-                alert('put a valid otp or check email');
-                console.log('else');
-                window.location.href = "signup.html";
-            }
+          );
+
+          res = await response.json();
+          console.log(res);
+          console.log("else");
+          window.location.href = "signup.html";
         }
-
+      };
     </script>
-</body>
+  </body>
 </html>
