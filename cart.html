@@ -1,182 +1,203 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
 
     <!-- bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+      crossorigin="anonymous"
+    />
 
     <!-- css -->
-    <link rel="stylesheet" href="css/order2.css">
-    <link rel="stylesheet" href="css/signup.css">
+    <link rel="stylesheet" href="css/order2.css" />
+    <link rel="stylesheet" href="css/signup.css" />
 
     <!-- jquery -->
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <!-- link font awesome icon -->
-    <script src="https://kit.fontawesome.com/af4e5ff284.js" crossorigin="anonymous"></script>
+    <script
+      src="https://kit.fontawesome.com/af4e5ff284.js"
+      crossorigin="anonymous"
+    ></script>
 
     <!-- font family -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"
+      rel="stylesheet"
+    />
 
     <script>
-      $(document).ready(function(){
-        $('#icon').click(function(){
-          $('ul').toggleClass('show');
+      $(document).ready(function () {
+        $("#icon").click(function () {
+          $("ul").toggleClass("show");
         });
       });
     </script>
-
-    
-
-</head>
-<body>
-
-  <header>
-    <nav>
-      <label class="logo"><i class="fas fa-utensils"></i> Khuda Lagse Naki!</label>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="order2.html">Order</a></li>
-        <li><a href="search.html">Search</a></li>
-        <li><a href="cart.html">Cart</a></li>
-        <li><a href="signup.html"><i class="fas fa-sign-in-alt"></i> Sign Up</a></li>
-        <li><a href="login2.html"><i class="fas fa-user-plus"></i> Log In</a></li>
-        <li><a href="profile.html">Profile</a></li>
-      </ul>
-      <label id="icon">
-        <i class="fas fa-bars"></i>
-      </label>
-    </nav>
-  </header>
- 
-    
+  </head>
+  <body>
+    <header>
+      <nav>
+        <label class="logo"
+          ><i class="fas fa-utensils"></i> Khuda Lagse Naki!</label
+        >
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="order2.html">Order</a></li>
+          <li><a href="search.html">Search</a></li>
+          <li><a href="cart.html">Cart</a></li>
+          <li>
+            <a href="signup.html"><i class="fas fa-sign-in-alt"></i> Sign Up</a>
+          </li>
+          <li>
+            <a href="login2.html"><i class="fas fa-user-plus"></i> Log In</a>
+          </li>
+          <li><a href="profile.html">Profile</a></li>
+        </ul>
+        <label id="icon">
+          <i class="fas fa-bars"></i>
+        </label>
+      </nav>
+    </header>
 
     <div>
-        <h2 class="text-center fw-bold">Welcome to cart</h2>
+      <h2 class="text-center fw-bold">Welcome to cart</h2>
     </div>
     <div class="row">
+      <div class="col-9">
+        <table id="parent" class="table table-striped table-hover cart2 mt-3">
+          <thead>
+            <tr>
+              <th scope="col">Image</th>
+              <th scope="col">Name</th>
+              <th scope="col">Quantity</th>
+              <th scope="col">Remove</th>
+              <th scope="col" |>Price</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
 
-        <div class="col-9">
-            <table id="parent" class="table table-striped table-hover cart2 mt-3">
-                <thead>
-                  <tr>
-                    <th scope="col">Image</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Quantity</th>
-                    <th scope="col">Remove</th>
-                    <th scope="col"|>Price</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  
-                </tbody>
-              </table>
+      <div class="col-3">
+        <div>
+          <div class="cart mt-3" id="my-cart">
+            <table class="table m-3">
+              <thead>
+                <h1>My-Cart</h1>
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col"></th>
+                  <th scope="col"></th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>Total Added-Products:</th>
+                  <td><span class="price" id="total-Products">0</span></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <th>Price:</th>
+                  <td class="price">Tk <span id="price">0</span></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <th>Delivery-Charge:</th>
+                  <td class="price">Tk <span id="delivery-charge">50</span></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <th scope="row">Total</th>
+                  <td class="price" colspan="2">
+                    Tk <span id="total">0</span>
+                  </td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="parces text-center">
+              <button id="check-out" class="btn btn-primary text-center">
+                Check Out
+              </button>
+            </div>
+          </div>
         </div>
-
-        <div class="col-3">
-            <div>
-                <div class="cart mt-3" id="my-cart">
-                  <table class=" table m-3">
-                    <thead>
-                      <h1>My-Cart</h1>
-                      <tr>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th>Total Added-Products:</th>
-                        <td><span class="price" id="total-Products">0</span></td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <th>Price:</th>
-                        <td class="price" >Tk <span id="price">0</span></td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <th>Delivery-Charge:</th>
-                        <td class="price" >Tk <span id="delivery-charge">50</span></td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <th scope="row">Total</th>
-                        <td class="price" colspan="2">Tk <span  id="total">0</span></td>
-                        <td></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  <div class="parces text-center">
-                    <button id="check-out" class="btn btn-primary text-center">Check Out</button>
-                  </div>
-                </div>
-              </div>
-              
-              
-        </div>
-        
+      </div>
     </div>
 
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+      crossorigin="anonymous"
+    ></script>
 
     <script>
-
-    let totalProduct = 0;
-    let totalPrice = 0;
-    let a = [];
-    let food = [];
-    let count = 0;
-    if(window.localStorage.getItem('array') !== null){
-
-        a = (window.localStorage.getItem('array').split(','));
-        for(let i =0; i< a.length; i++){
-        a[i] = parseInt(a[i]);
-    }
-    }
-    
-    
-
-    const addToCart2 = async (productId) => {
-      let resoponse2 = await fetch("https://calm-garden-13016.herokuapp.com/allfoods");
-
-      let res2 = await resoponse2.json();
-
-      for(let i =0; i<12; i++){
-      if(a[i]>0){
-        totalPrice = totalPrice + res2[i].price * a[i];
+      let totalProduct = 0;
+      let totalPrice = 0;
+      let a = [];
+      let food = [];
+      let count = 0;
+      if (window.localStorage.getItem("array") !== null) {
+        a = window.localStorage.getItem("array").split(",");
+        for (let i = 0; i < a.length; i++) {
+          a[i] = parseInt(a[i]);
+        }
       }
-    }
-    console.log(food);
-    document.getElementById('price').innerText = totalPrice;
 
-    document.getElementById('total').innerText = totalPrice+50;
+      const addToCart2 = async (productId) => {
+        let resoponse2 = await fetch(
+          "https://calm-garden-13016.herokuapp.com/allfoods"
+        );
 
-    console.log(a);
+        let res2 = await resoponse2.json();
 
-    const parentdiv = document.getElementById('parent');
-    for(let i = 0; i<12; i++){
-        if( a[i] > 0){
-            // const div = document.createElement('div');
-            // div.innerHTML=`
-            // <img style="width:50px" src="${res2[i].imgSource}"></img>`;
-            // parentdiv.appendChild(div);
-            let delet = a[i];
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
+        console.log(res2);
+        for (let i = 0; i < 12; i++) {
+          if (a[i] > 0) {
+            totalPrice = totalPrice + res2[i].price * a[i];
+          }
+        }
+        console.log(food);
+        document.getElementById("price").innerText = totalPrice;
+
+        document.getElementById("total").innerText = totalPrice + 50;
+
+        console.log(a);
+
+        const parentdiv = document.getElementById("parent");
+        for (let i = 0; i < 12; i++) {
+          if (a[i] > 0) {
+            if (res2[i].quantity === 0) {
+              alert(`Sorry! ${res2[i].name}  item is not available in our resturant.`);
+              a[i] = 0;
+              window.localStorage.setItem("array", a);
+            } else if (res2[i].quantity < a[i]) {
+              a[i] = re2[i].quantity;
+              window.localStorage.setItem("array", a);
+            } else {
+              // const div = document.createElement('div');
+              // div.innerHTML=`
+              // <img style="width:50px" src="${res2[i].imgSource}"></img>`;
+              // parentdiv.appendChild(div);
+              let delet = a[i];
+              const tr = document.createElement("tr");
+              tr.innerHTML = `
             
-            <td> <img style="width:100px; height: 100px" src="${res2[i].imgSource}"></img> </td>
+            <td> <img style="width:100px; height: 100px" src="${
+              res2[i].imgSource
+            }"></img> </td>
             <td> ${res2[i].name} </td>
             <td class="fw-bold"> 
               <i onclick="minus('${i}')"style="border: 1px solid; border-radius: 5px" class="fas fa-minus"></i>
@@ -184,79 +205,85 @@
               <i onclick="plus('${i}')"style="border: 1px solid; border-radius: 5px" class="fas fa-plus"></i> 
             </td>
             <td> <button onclick="deleteProduct('${i}')"class="btn text-center remove">Remove</button> </td>
-            <td>  ${a[i] * (res2[i].price)} </td>
+            <td>  ${a[i] * res2[i].price} </td>
             `;
-            
-            tr.style.margin = "2px";
-            tr.style.backgroundColor = "#edf2f0";
-            tr.style.padding = "2px";
-            // tr.style.border = "2px solid gray";
-            parentdiv.appendChild(tr);
-            
-            // const div = document.createElement('div');
-            // div.innerHTML = `
-            // <div class="d-flex">
-            //     <p> ${res2[i].name} </p>
-            //     <img style="width:100px" src="${res2[i].imgSource}"></img>
-            //     <p> ${a[i]} </p>
-            //     <p> 2 </p>    
-            // </div>
-            // `;
-            // div.style.backgroundColor= "gray";
-            // div.style.margin="5px";
-            // parentdiv.appendChild(div);
+
+              tr.style.margin = "2px";
+              tr.style.backgroundColor = "#edf2f0";
+              tr.style.padding = "2px";
+              // tr.style.border = "2px solid gray";
+              parentdiv.appendChild(tr);
+
+              // const div = document.createElement('div');
+              // div.innerHTML = `
+              // <div class="d-flex">
+              //     <p> ${res2[i].name} </p>
+              //     <img style="width:100px" src="${res2[i].imgSource}"></img>
+              //     <p> ${a[i]} </p>
+              //     <p> 2 </p>
+              // </div>
+              // `;
+              // div.style.backgroundColor= "gray";
+              // div.style.margin="5px";
+              // parentdiv.appendChild(div);
+            }
+          }
         }
-    }
+      };
 
-    }
-    
-    const deleteProduct = (i) =>{
-               a[i] = 0 ;
-               console.log(a);
-               window.localStorage.setItem('array', a);
-               location.reload();
-    }
-
-    const plus = (i) =>{
-      a[i] = a[i]+1;
-      window.localStorage.setItem('array', a);
-      location.reload();
-    }
-
-    const minus = (i) =>{
-      a[i] = a[i]-1;
-      if(a[i] == 0){
-        deleteProduct();
-      }
-      else{
-        window.localStorage.setItem('array', a);
+      const deleteProduct = (i) => {
+        a[i] = 0;
+        console.log(a);
+        window.localStorage.setItem("array", a);
         location.reload();
-      }
-      }
-    const totalProducts = () =>{
-      for(let i =0; i <12; i++){
-        if(a[i] > 0){
-          totalProduct = totalProduct + 1;
+      };
+
+      const plus = async(i) => {
+        let resoponse2 = await fetch(
+          "https://calm-garden-13016.herokuapp.com/allfoods"
+        );
+
+        let res2 = await resoponse2.json();
+        if (res2[i].quantity < a[i] + 1) {
+          alert(`Sorry! Your quantity of ${res2[i].name} exceeds our stock. The maximum quantity that can be added is ${res2[i].quantity}.`);
+        } else {
+          a[i] = a[i] + 1;
+          window.localStorage.setItem("array", a);
+          location.reload();
         }
-      }
+      };
 
-      document.getElementById('total-Products').innerText = totalProduct;
-    }
+      const minus = (i) => {
+        a[i] = a[i] - 1;
+        if (a[i] == 0) {
+          deleteProduct();
+        } else {
+          window.localStorage.setItem("array", a);
+          location.reload();
+        }
+      };
+      const totalProducts = () => {
+        for (let i = 0; i < 12; i++) {
+          if (a[i] > 0) {
+            totalProduct = totalProduct + 1;
+          }
+        }
 
-    
-    totalProducts();
-    addToCart2();
+        document.getElementById("total-Products").innerText = totalProduct;
+      };
 
-    document.getElementById('check-out').addEventListener('click', function(){
-      if(document.cookie != ''){
-        window.location.href = "payment.html";
-      }
-      else{
-        alert('Please Log In');
-      }
-    })
+      totalProducts();
+      addToCart2();
+
+      document
+        .getElementById("check-out")
+        .addEventListener("click", function () {
+          if (document.cookie != "") {
+            window.location.href = "payment.html";
+          } else {
+            alert("Please Log In");
+          }
+        });
     </script>
-
-
-</body>
+  </body>
 </html>
