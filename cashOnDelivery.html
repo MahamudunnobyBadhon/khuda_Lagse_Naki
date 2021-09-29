@@ -72,28 +72,54 @@
       </button>
     </div>
 
-    <div style="margin-left: 530px" class="col mt-3">
-      <form id="formElem" action="post">
-        <label for="inputEmail4" class="form-label">Name</label>
-        <br />
-        <p id="name" class="error name-error"></p>
+    <div class="row">
+      <div style="padding-left: 20%;" class="col-6 mt-3">
+        <h4>
+          Use Cupon Code 
+        </h4>
 
-        <label for="inputEmail4" class="form-label">Email</label>
-        <br />
-        <p id="email" class="error email-error"></p>
+          <label for="Price" class="form-label">Price(without delivery charge)</label>
+          <br />
+          <p id="price"></p>
+          <label for="Price" class="form-label">Price(using cupon)</label>
+          <br />
+          <p id="cupon-price"></p>
 
-        <label for="inputEmail4" class="form-label">Mobile No</label>
-        <br />
-        <input type="text" placeholder="enter mobile" id="mobile" size="30" />
-        <p class="error mobile-error"></p>
+          <label for="Cupon" class="form-label">Cupon code</label>
+          <br />
+          <input type="text" placeholder="cupon" size="20" id="cupon-text">
+          <br>
+          <br>
+          <button id="cupon-submit">Submit</button>
 
-        <label for="inputEmail4" class="form-label">Address</label>
-        <br />
-        <input type="text" placeholder="enter address" id="address" size="30" />
-        <p class="error address-error"></p>
+          <p>Your Total Price: <span id="totalPrice"></span></p>
 
-        <input type="submit" value="Submit" id="submit" />
-      </form>
+      </div>
+
+      <div class="col-6 mt-3">
+        <form id="formElem" action="post">
+          <label for="inputEmail4" class="form-label">Name</label>
+          <br />
+          <p id="name" class="error name-error"></p>
+  
+          <label for="inputEmail4" class="form-label">Email</label>
+          <br />
+          <p id="email" class="error email-error"></p>
+  
+          <label for="inputEmail4" class="form-label">Mobile No</label>
+          <br />
+          <input type="text" placeholder="enter mobile" id="mobile" size="30" />
+          <p class="error mobile-error"></p>
+  
+          <label for="inputEmail4" class="form-label">Address</label>
+          <br />
+          <input type="text" placeholder="enter address" id="address" size="30" />
+          <p class="error address-error"></p>
+  
+          <input type="submit" value="Submit" id="submit" />
+        </form>
+      </div>
+
     </div>
 
     <script
@@ -273,6 +299,135 @@
           window.localStorage.getItem("price")
         )}</p>`;
       };
+
+
+      const cupon = async() =>{
+
+let resoponse3 = await fetch(
+  "https://calm-garden-13016.herokuapp.com/allfoods"
+);
+
+let res3 = await resoponse3.json();
+
+let total = 0;
+
+for (let i = 0; i < 12; i++) {
+  if (a[i] > 0) {
+    total += res3[i].price * a[i];
+  }
+}
+total = total ;
+
+document.getElementById('price').innerText = total;
+
+
+let cookies = document.cookie;
+
+let params = {
+  token: cookies,
+};
+
+let queryString = Object.keys(params)
+  .map((key) => key + "=" + params[key])
+  .join("&");
+
+let response = await fetch(
+  "https://calm-garden-13016.herokuapp.com/user_data",
+  {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" }, // this line is important, if this content-type is not set it wont work
+    body: queryString,
+  }
+);
+
+let res = await response.json();
+
+const name = res.username;
+const email = res.email;
+
+document.getElementById('cupon-submit').addEventListener('click', async function(){
+  const cuponCode = document.getElementById('cupon-text').value;
+  console.log(name, email, total, cuponCode);
+
+    let params = {
+      name: name,
+      email: email,
+      cost: total,
+      cupon: cuponCode,
+     };
+  
+  let queryString = Object.keys(params)
+    .map((key) => key + "=" + params[key])
+    .join("&");
+
+  let response = await fetch(
+    "https://calm-garden-13016.herokuapp.com/cupon_validation",
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" }, // this line is important, if this content-type is not set it wont work
+      body: queryString,
+    }
+  );
+  
+  let res = await response.json();
+  console.log(res);
+  alert(res.msg);
+  
+
+  if(res.msg === "valid cupon"){
+    params = {
+      cupon: res.cupon,
+     };
+  
+  queryString = Object.keys(params)
+    .map((key) => key + "=" + params[key])
+    .join("&");
+
+   let response2 = await fetch(
+    "https://calm-garden-13016.herokuapp.com/update_cupon",
+    {
+      method: "PUT",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" }, // this line is important, if this content-type is not set it wont work
+      body: queryString,
+    }
+  );
+
+  let res2 = await response2.json();
+  console.log(res2);
+  alert(res2.msg);
+
+
+  params = {
+      name: name,
+      email: email,
+      cupon: res.cupon,
+     };
+  
+  queryString = Object.keys(params)
+    .map((key) => key + "=" + params[key])
+    .join("&");
+
+  response2 = await fetch(
+    "https://calm-garden-13016.herokuapp.com/update_cupon_user",
+    {
+      method: "PUT",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" }, // this line is important, if this content-type is not set it wont work
+      body: queryString,
+    }
+  );
+
+  res2 = await response2.json();
+  console.log(res2);
+  alert(res2.msg);
+  }
+
+  let cuponPrice = total - res.value;
+  document.getElementById('cupon-price').innerText= cuponPrice;
+
+  document.getElementById('totalPrice').innerText = cuponPrice+50;
+})
+}
+      cupon();
       loadProducts();
       payment();
     </script>
