@@ -94,7 +94,7 @@
         class="table table-striped w-75 mx-auto text-center">
         <thead>
             <tr>
-              
+              <th>Image</th>
               <th>food</th>
               <th>Quantity</th>
               <th>Price</th>
@@ -322,12 +322,18 @@
         document.getElementById('totalPriceOfLastOrder').innerText = totalPriceOfLastOrder;
         for( const food of det){
           console.log( food);
+          // let a = food.imgSource.slice(0,3);
+          // console.log(a);
+          // let b = food.imgSource.slice(4,);
+          // let img = a + "/" + b;
+          // console.log(img);
           // let date = new Date(food.createdAt);
           // date = date.toISOString().substring(0, 19);
           const tr = document.createElement("tr");
           tr.innerHTML = `
           <tr>
           
+            <td><img style="width:100px; height: 100px" src="${food.imgSource}"></img></td>
             <td> ${food.name} </td>
             <td>${food.quantity}</td>
             <td>${food.price}</td>

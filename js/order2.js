@@ -59,8 +59,10 @@ const addToCart2 = async (productId) => {
   if(window.localStorage.getItem('array') !== null){
 
     ar = (window.localStorage.getItem('array').split(','));
+    console.log(ar);
     for(let i =0; i< ar.length; i++){
         ar[i] = parseInt(ar[i]);
+        console.log(ar[i]);
     }
   }
   
@@ -79,69 +81,7 @@ const addToCart2 = async (productId) => {
   }
   console.log(array);
 
-  
-
-  // for(let i=0; i<12; i++){ };
-
   console.log(total);
   window.localStorage.setItem("array",array);
-  //  const isMealInArray = orderedProductsArray.find((p) => p._id == productId);
-
-  //  console.log("hhhhhhhhhiiiiiiiiii", isMealInArray);
-
-  // if (isMealInArray !== undefined) {
-  //   isMealInArray.quantity++;
-  //   updateCart();
-  // } else {
-
-
-
-  //   fetchedData(
-  //     `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${productId}`
-  //   ).then((data) => {
-  //     const { strMeal, strMealThumb, idMeal } = data.meals[0];
-
-
-    
-  //     orderedProductsArray = [
-  //       ...orderedProductsArray,
-  //       { strMeal, strMealThumb, idMeal, quantity: 1 },
-  //     ];
-
-  //     updateCart();
-  //     console.log("hello", orderedProductsArray);
-  //   });
-  // }
 };
-
-function updateCart() {
-  document.getElementById("cartCount").innerText = orderedProductsArray.length;
-
-  const cartDiv = document.getElementById("cartProducts");
-  cartDiv.innerHTML = "";
-
-  orderedProductsArray.map((p) => {
-    const mealDiv = document.createElement("div");
-
-    mealDiv.classList.add("card", "mb-3");
-    mealDiv.style.maxWidth = "540px";
-
-    mealDiv.innerHTML = `
-  <div class="row g-0">
-    <div class="col-md-4">
-      <img src='${p.strMealThumb}' class="img-fluid rounded rounded-circle p-3" alt="...">
-    </div>
-    <div class="col-md-8">
-      <div class="card-body mt-3">
-        <h5 class="card-title"> ${p.strMeal}</h5>
- <p>Quantity: ${p.quantity}</p>
-      </div>
-
-    </div>
-  </div>
-`;
-
-    cartDiv.appendChild(mealDiv);
-  });
-}
 
