@@ -160,6 +160,7 @@
               quantity: a[i],
               preQuantity: res2[i].quantity,
               price: res2[i].price * a[i],
+              imgSource: res2[i].imgSource,
             };
             count = count + 1;
           }
@@ -213,6 +214,7 @@
           params["name" + i] = val[i].name;
           params["quantity" + i] = val[i].quantity;
           params["price" + i] = val[i].price;
+          params["imgSource" + i] = val[i].imgSource;
         }
         console.log(params);
         var queryString = Object.keys(params)
@@ -232,7 +234,7 @@
 
         let res = await response.json();
         console.log(res);
-        alert(res.msg);
+        // alert(res.msg);
 
         params = {};
 
@@ -256,8 +258,21 @@
 
         res = await response.json();
         console.log(res);
-        alert(res.msg);
+        // alert(res.msg);
+
+        for(let i =0; i<12; i++){
+          a[i] = 0;
+        }
+        window.localStorage.setItem("array",a);
+
+        
+        
       };
+
+      const goOrderPage = () =>{
+        console.log('get order');
+        window.location.href = "order2.html";
+      }
 
       const loadProducts = async () => {
         let cookies = document.cookie;
