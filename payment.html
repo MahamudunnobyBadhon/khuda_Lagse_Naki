@@ -338,7 +338,7 @@
 
           let res2 = await response2.json();
           console.log(res2);
-          alert(res2.msg);
+          // alert(res2.msg);
 
 
           params = {
@@ -362,7 +362,7 @@
 
           res2 = await response2.json();
           console.log(res2);
-          alert(res2.msg);
+          // alert(res2.msg);
 
         for(let i =0; i<12; i++){
           a[i] = 0;
@@ -487,6 +487,11 @@
 
             globalCupon = res;
             
+          }
+          console.log(res.value);
+
+          if(isNaN(res.value)){
+           res.value = 0;
           }
 
           let cuponPrice = total - res.value;
