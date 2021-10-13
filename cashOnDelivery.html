@@ -64,7 +64,12 @@
       </nav>
     </header>
 
-    <h2 class="text-center fw-bolder">Payment Method</h2>
+    <div class="d-flex justify-content-between mt-5">
+      
+      <h2 class="text-center fw-bolder">Payment Method</h2>
+      <button onclick="cuponPage()" class="btn btn-primary">Cupon page</button>
+
+    </div>
     <div class="text-center">
       <h3>Want to Bkash Payment?</h3>
       <button onclick="bkashPayment()" class="btn btn-success">
@@ -133,6 +138,10 @@
         window.location.href = "payment.html";
       };
       let a = [];
+
+      const cuponPage = () =>{
+        window.location.href = "cuponPage.html";
+      }
 
       if (window.localStorage.getItem("array") !== null) {
         a = window.localStorage.getItem("array").split(",");

@@ -64,7 +64,12 @@
       </nav>
     </header>
 
-    <h2 class="text-center fw-bolder">Payment Method</h2>
+    <div class="d-flex justify-content-between mt-5">
+      
+      <h2 class="text-center fw-bolder">Payment Method</h2>
+      <button onclick="cuponPage()" class="btn btn-primary">Cupon page</button>
+
+    </div>
     <div class="text-center">
       <h3>Want to cash on delivery?</h3>
       <button onclick="cashOnDelivery()" class="btn btn-success">
@@ -177,6 +182,12 @@
 
     <script>
       let a = [];
+
+      let globalCupon = {};
+
+      const cuponPage = () =>{
+        window.location.href = "cuponPage.html";
+      }
 
       if (window.localStorage.getItem("array") !== null) {
         a = window.localStorage.getItem("array").split(",");
@@ -308,6 +319,51 @@
         console.log(res);
         alert(res.msg);
 
+        params = {
+              cupon: globalCupon.cupon,
+             };
+          
+          queryString = Object.keys(params)
+            .map((key) => key + "=" + params[key])
+            .join("&");
+
+           let response2 = await fetch(
+            "https://calm-garden-13016.herokuapp.com/update_cupon",
+            {
+              method: "PUT",
+              headers: { "Content-Type": "application/x-www-form-urlencoded" }, // this line is important, if this content-type is not set it wont work
+              body: queryString,
+            }
+          );
+
+          let res2 = await response2.json();
+          console.log(res2);
+          alert(res2.msg);
+
+
+          params = {
+              name: name,
+              email: email,
+              cupon: globalCupon.cupon,
+             };
+          
+          queryString = Object.keys(params)
+            .map((key) => key + "=" + params[key])
+            .join("&");
+
+          response2 = await fetch(
+            "https://calm-garden-13016.herokuapp.com/update_cupon_user",
+            {
+              method: "PUT",
+              headers: { "Content-Type": "application/x-www-form-urlencoded" }, // this line is important, if this content-type is not set it wont work
+              body: queryString,
+            }
+          );
+
+          res2 = await response2.json();
+          console.log(res2);
+          alert(res2.msg);
+
         for(let i =0; i<12; i++){
           a[i] = 0;
         }
@@ -357,6 +413,8 @@
         let resoponse3 = await fetch(
           "https://calm-garden-13016.herokuapp.com/allfoods"
         );
+
+        
 
         let res3 = await resoponse3.json();
 
@@ -426,50 +484,9 @@
           
 
           if(res.msg === "valid cupon"){
-            params = {
-              cupon: res.cupon,
-             };
-          
-          queryString = Object.keys(params)
-            .map((key) => key + "=" + params[key])
-            .join("&");
 
-           let response2 = await fetch(
-            "https://calm-garden-13016.herokuapp.com/update_cupon",
-            {
-              method: "PUT",
-              headers: { "Content-Type": "application/x-www-form-urlencoded" }, // this line is important, if this content-type is not set it wont work
-              body: queryString,
-            }
-          );
-
-          let res2 = await response2.json();
-          console.log(res2);
-          alert(res2.msg);
-
-
-          params = {
-              name: name,
-              email: email,
-              cupon: res.cupon,
-             };
-          
-          queryString = Object.keys(params)
-            .map((key) => key + "=" + params[key])
-            .join("&");
-
-          response2 = await fetch(
-            "https://calm-garden-13016.herokuapp.com/update_cupon_user",
-            {
-              method: "PUT",
-              headers: { "Content-Type": "application/x-www-form-urlencoded" }, // this line is important, if this content-type is not set it wont work
-              body: queryString,
-            }
-          );
-
-          res2 = await response2.json();
-          console.log(res2);
-          alert(res2.msg);
+            globalCupon = res;
+            
           }
 
           let cuponPrice = total - res.value;

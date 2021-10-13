@@ -69,6 +69,13 @@
     <script>
       formElem.onsubmit = async (e) => {
          e.preventDefault();
+
+         let resoponse4 = await fetch(
+          "https://calm-garden-13016.herokuapp.com/user/allcupons"
+        );
+
+        let res4 = await resoponse4.json();
+        console.log(res4);
  
 
       const username = document.querySelector('#email').value;
