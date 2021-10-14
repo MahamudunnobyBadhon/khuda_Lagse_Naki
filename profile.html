@@ -78,14 +78,14 @@
         <p>Email: <span id="email"></span></p>
         <p>Mobile No: <span id="mobile-no"></span></p>
         <p>Address: <span id="address"></span></p>
-        <button onclick="logOut()">Log Out</button>
-        <button onclick="changePassword()">Change Password</button>
+        <button class="btn btn-danger"onclick="logOut()">Log Out</button>
+        <button class="btn btn-success" onclick="changePassword()">Change Password</button>
       </div>
     </section>
 
     <section style="margin-top: 15px">
       <h4 style="margin-left: 30px; text-decoration: underline;font-family: 'Open Sans', sans-serif">
-        Purchasing History : Last Order 
+        Purchasing History : Last Pending Order 
       </h4>
       <h5  style="margin-left: 30px; font-family: 'Open Sans', sans-serif">Order Id : <small id="last-order-id"></small></h5>
       <h5  style="margin-left: 30px; font-family: 'Open Sans', sans-serif">Total Price : <small id="totalPriceOfLastOrder"></small></h5>
@@ -164,6 +164,8 @@
           console.log(expires);
           document.cookie =  cvalue + ";" + expires + ";path=/";
           console.log(document.cookie);
+
+          window.location.href = "login2.html";
           //  document.cookie =  ' ' + ";" + expires + ";path=/";
           // document.cookie =  cvalue + ";" + expires + ";path=/";
         }
@@ -233,6 +235,13 @@
         }
         console.log(res);
 
+        document.getElementById("name").innerHTML = `${res.username}`;
+        document.getElementById("email").innerHTML = `${res.email}`;
+        document.getElementById("mobile-no").innerHTML = `${res.mobile}`;
+        // document.getElementById(
+        //   "address"
+        // ).innerHTML = `${res2.details[0].address}`;
+
         //  document.getElementById('name').innerHTML = `${res.username}`;
         //  document.getElementById('email').innerHTML = `${res.email}`;
         //  document.getElementById('mobile-no').innerHTML = `${res.mobile}`;
@@ -263,6 +272,7 @@
         let res = await response.json();
 
         const params2 = { name: res.username, email: res.email };
+
 
         var queryString2 = Object.keys(params2)
           .map((key) => key + "=" + params2[key])
@@ -296,14 +306,21 @@
           `;
           parentDiv.appendChild(tr);
 
-          response2 = await fetch("https://calm-garden-13016.herokuapp.com/user_pending", {
+          console.log(params2);
+
+        response2 = await fetch("https://calm-garden-13016.herokuapp.com/user_pending", {
             method: "POST",
             headers: { "Content-Type": "application/x-www-form-urlencoded" }, // this line is important, if this content-type is not set it wont work
             body: queryString2,
           });
         }
 
+        console.log(response2);
+        
+          
         res2 = await response2.json();
+        console.log(res2);
+       if(res2.details.length > 0){
         console.log(res2.details);
         parentDiv = document.getElementById("purchase-history-pending");
 
@@ -366,6 +383,7 @@
         document.getElementById(
           "address"
         ).innerHTML = `${res2.details[0].address}`;
+       }
       };
 
       const changePassword = () =>{

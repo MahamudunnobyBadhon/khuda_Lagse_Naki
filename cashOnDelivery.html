@@ -245,7 +245,7 @@
 
         let res = await response.json();
         console.log(res);
-        // alert(res.msg);
+        alert(res.msg);
 
         params = {};
 
@@ -319,6 +319,8 @@
           a[i] = 0;
         }
         window.localStorage.setItem("array",a);
+
+        window.location.href = "order2.html";
 
         
         

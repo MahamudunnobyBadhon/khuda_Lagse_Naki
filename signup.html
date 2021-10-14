@@ -136,7 +136,9 @@ let response = await fetch('https://calm-garden-13016.herokuapp.com/signup', {
            let otpValue;
               
               const params2 = {
-                    email
+                    name,
+                    email,
+                    mobile
                   }
                   var queryString = Object.keys(params2).map(key => key + '=' + params2[key]).join('&');
 
@@ -150,7 +152,7 @@ let response = await fetch('https://calm-garden-13016.herokuapp.com/signup', {
               });
 
                   let res2 = await response2.json();
-                  console.log(res2);
+                  alert(res2.msg);
                 
           //         let value = res2.cc;
                 
