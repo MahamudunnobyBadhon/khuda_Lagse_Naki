@@ -131,7 +131,7 @@ let response = await fetch('https://calm-garden-13016.herokuapp.com/signup', {
          else if(res.message === 'User was added successfully!'){
            console.log('else print');
 
-           window.location.href = "otpcheck.html";
+           
           
            let otpValue;
               
@@ -153,6 +153,7 @@ let response = await fetch('https://calm-garden-13016.herokuapp.com/signup', {
 
                   let res2 = await response2.json();
                   alert(res2.msg);
+                  window.location.href = "otpcheck.html";
                 
           //         let value = res2.cc;
                 
